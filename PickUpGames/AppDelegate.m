@@ -7,6 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
+#import "Group.h"
+#import "Game.h"
+#import "GameConfirmation.h"
+#import "UserProfilePic.h"
+
 
 @interface AppDelegate ()
 
@@ -17,6 +23,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Parse enableLocalDatastore];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"o2joyxD78tdFPAfj6fsDtj0KHvhR4vHz7Vxnsj4n"
+                  clientKey:@"1Rcv6sOZzWzYwap1M8O327SUdVqB9qvTj4c8Ug9v"];
+    
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    [Group registerSubclass];
+    [Game registerSubclass];
+    [GameConfirmation registerSubclass];
+    [UserProfilePic registerSubclass];
+    
+    
+
+
+    
     return YES;
 }
 
