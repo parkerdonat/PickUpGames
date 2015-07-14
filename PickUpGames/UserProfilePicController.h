@@ -11,7 +11,9 @@
 
 @interface UserProfilePicController : NSObject
 
+@property (strong, nonatomic) UIImageView *profilePicImageView;
+@property (strong, nonatomic) UserProfilePic *profilePicObj;
 + (UserProfilePicController *)sharedInstance;
 - (void)savePhotoForUser:(PFUser *)user profilePic:(UIImage *)profilePic;
-
+- (void)getProfilePics:(PFUser *)user withCompletion:(void (^)(UserProfilePic *userProfilePic))completion;
 @end

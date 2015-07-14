@@ -25,20 +25,42 @@
     
     PFObject *confirmation = [PFObject objectWithClassName:@"GameConfirmation"];
     
-    [confirmation setObject:user  forKey:@"from"];
+    [confirmation setObject:user  forKey:@"user"];
     //[confirmation setObject:otherUser forKey:@"to"];
-    [confirmation setObject:game forKey:@"to"];
+    [confirmation setObject:game forKey:@"game"];
     [confirmation saveInBackground];
     
 }
 
 - (void)gamesGoingTo:(PFUser *)user withCompletion:(void (^)(BOOL success))completion {
     
-    PFQuery *query = [[GameConfirmation query] whereKey:@"from" equalTo:user];
-    [query includeKey:@"to"];
+    PFQuery *query = [[GameConfirmation query] whereKey:@"user" equalTo:user];
+    [query includeKey:@"game"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.gamesUserIsGoingTo = objects;
+        if (objects) {
+            self.gamesUserIsGoingTo = objects;
+            completion(YES);
+        } else {
+            completion(NO);
+        }
+
+    }];
+    
+}
+
+- (void)usersGoingToGame:(Game *)game withCompletion:(void (^)(BOOL success))completion{
+    
+    PFQuery *query = [[GameConfirmation query] whereKey:@"game" equalTo:game];
+    
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects) {
+            self.usersGoingToGame = objects;
+            completion(YES);
+        } else {
+            completion(NO);
+        }
     }];
     
 }

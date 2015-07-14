@@ -40,6 +40,7 @@
     //[[GameController sharedInstance] addUserToGame:self.game user:[PFUser currentUser]];
     
     [[GameConfirmationController sharedInstance] createConfirmationToGame:self.game user:[PFUser currentUser]];
+
 }
 
 #pragma mark-

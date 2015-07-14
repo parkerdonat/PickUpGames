@@ -12,6 +12,7 @@
 #import <Parse/Parse.h>
 #import "GameConfirmationController.h"
 #import "UserProfilePicController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const kAddGameCell = @"addGameButtonCell";
 static NSString * const kGamesPostedCell = @"gamesPostedCell";
@@ -35,6 +36,12 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 //    [[GameController sharedInstance] gamesUserIsGoingTo:^{
 //        [self.tableView reloadData];
 //    }];
+    if ( [UserProfilePicController sharedInstance].profilePicImageView.image == nil) {
+        self.profilePic.image = [UIImage imageNamed:@"user60(resized)"];
+    } else {
+        self.profilePic.image = [UserProfilePicController sharedInstance].profilePicImageView.image;
+
+    }
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
@@ -53,14 +60,16 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 {
     [super viewWillAppear:animated];
     
-    [[GameController sharedInstance] getGamesfromUser:^{
-        [self.tableView reloadData];
-    }];
-    
     [[GameConfirmationController sharedInstance] gamesGoingTo:[PFUser currentUser] withCompletion:^(BOOL success) {
         NSLog(@"GAMESGOING QUERY");
         [self.tableView reloadData];
     }];
+    
+    [[GameController sharedInstance] getGamesfromUser:^{
+        [self.tableView reloadData];
+    }];
+    
+   
 
 }
 
@@ -206,10 +215,12 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
         image = info[UIImagePickerControllerEditedImage];
         self.profilePic.image = image;
         
+        self.imageButton.alpha = 0;
+        
         [[UserProfilePicController sharedInstance] savePhotoForUser:[PFUser currentUser] profilePic:image];
         
-        
-        
+        PFUser *user = [PFUser currentUser];
+        [user setObject:[UserProfilePicController sharedInstance].profilePicObj forKey:@"profilePicPointer"];
         
     }];
     

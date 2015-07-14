@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-PickUpGames-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-PickUpGames-pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7959ED937DB997F19E3BBF24</key>
+		<key>115C4FAD3B24D82293A3CF56</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B42A5A9ABE9880A7C5D29D16</key>
+		<key>7912ECEDF8991E1AD1D287F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E53F328B7B3522D9D82CD182</key>
+		<key>9E7EF1A73FF76D4FEE9E1B9E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E2176D1AAEB2FE19C3DC3935</key>
 		<dict>
 			<key>primary</key>
 			<true/>
