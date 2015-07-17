@@ -23,7 +23,7 @@
     
     Game *game = [Game new];
     
-    PFACL *userACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    //PFACL *userACL = [PFACL ACLWithUser:[PFUser currentUser]];
     
     game.sportName = name;
     game.city = city;
@@ -31,7 +31,7 @@
     game.dateAndTime = dateAndTime;
     game.gameCreator = creator;
     game.usersGoing = @[];
-    game.ACL = userACL;
+//    game.ACL = userACL;
     
     [game saveInBackground];
 }
@@ -50,7 +50,7 @@
 - (void)getGamesWithCity:(NSString *)city withCompletion:(void (^)(BOOL success))completion
 {
     
-    PFQuery *query = [[Game query] whereKey:@"city" equalTo:city];
+    PFQuery *query = [[Game query] whereKey:@"city" containsString:city];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -70,7 +70,18 @@
     }];
 }
 
-
+- (void)deleteGameUserPosted:(Game *)game {
+    
+    
+    NSMutableArray *tempArray = self.gamesFromUser.mutableCopy;
+    [tempArray removeObject:game];
+    
+    self.gamesFromUser = tempArray.copy;
+    
+    [game delete];
+    [game saveInBackground];
+    
+}
 
 
 

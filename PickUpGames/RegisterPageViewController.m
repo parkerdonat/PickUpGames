@@ -26,7 +26,9 @@
     self.name.delegate = self;
     self.email.delegate = self;
     self.password.delegate = self;
-    self.registerUserButton.backgroundColor = [UIColor greenColor];
+    self.registerUserButton.backgroundColor = [UIColor whiteColor];
+    
+    
     
 }
 

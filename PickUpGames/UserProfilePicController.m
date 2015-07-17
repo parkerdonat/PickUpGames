@@ -34,10 +34,13 @@
         
         newProfilePic.user = user;
         
-        [newProfilePic saveInBackground];
+        [newProfilePic saveInBackgroundWithBlock:^(BOOL saved, NSError *error){
+            if (!error) {
+                [user setObject:newProfilePic forKey:@"profilePicPointer"];
+                [user saveInBackground];
+            }
+        }];
     }];
-    
-   
     
 }
 
@@ -54,7 +57,8 @@
             [self.profilePicImageView sd_setImageWithURL:[NSURL URLWithString:self.profilePicObj.userProfilePic.url]];
             completion(self.profilePicObj);
         } else {
-            completion(nil);
+            self.profilePicObj = [NSNull null];
+            completion(self.profilePicObj);
         }
     }];
 }

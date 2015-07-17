@@ -14,6 +14,7 @@
 #import "GameDetailViewController.h"
 #import "HomePageTableViewCell.h"
 #import <pop/POP.h>
+#import "CustomTableViewCell.h"
 
 
 @interface FindGames () <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, CLLocationManagerDelegate> // We need these protocols to make our uisearchcontroller to work.
@@ -31,8 +32,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
     
+    [self setNeedsStatusBarAppearanceUpdate];
+    UIImageView *titleImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Cleargameon"]];
+    
+    self.navigationItem.titleView = titleImage;
+
+    self.tabBarController.tabBar.tintColor = [UIColor redColor];
+
     _resultsTableController = [[ResultsTableViewController alloc]init];
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController]; // Here we are linking our search controller with the tableview that we crreated to filter the results
     self.searchController.searchResultsUpdater = self; // This class is going to be dealing with the updating of the data <UISearchResultUpdating>
@@ -59,27 +66,35 @@
 //    {
 //    }
     
+    if ([PFUser currentUser]){
     [[GameConfirmationController sharedInstance] gamesGoingTo:[PFUser currentUser] withCompletion:^(BOOL success) {
         if (success) {
             NSLog(@"SUCCESS FOR GAMES GOING TO");
         }
     }];
-
+    }
     
     
     
 }
 
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     if (![PFUser currentUser]) {
         [self performSegueWithIdentifier:@"notLoggedIn" sender:nil];
         //                    UIViewController *loginView = [LoginViewController new];
         //                    [self presentViewController:loginView animated:YES completion:nil];
     }
+    self.navigationController.navigationBar.barTintColor = [UIColor redColor];
     [self.locationManager requestWhenInUseAuthorization];
 
+    //[GameController sharedInstance] getGamesWithCity:<#(NSString *)#> withCompletion:<#^(BOOL success)completion#>
     
     [[GameController sharedInstance] getGames:^(BOOL success) {
             [self.tableView reloadData];
@@ -194,14 +209,27 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView registerNib:[UINib nibWithNibName:@"CustomCell" bundle:nil] forCellReuseIdentifier:@"CustomCellXib"];
+    
     Game *game = [GameController sharedInstance].gamesFromCity[indexPath.row];
     
-    HomePageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCellXib"];
     if (!cell) {
-        cell = [[HomePageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomCellXib"];
     }
     
-    cell.textLabel.text = game.sportName;
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomTableViewCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    
+    cell.sportName.text = game.sportName;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMMM dd, hh:mm a"];
+    cell.dateAndTime.text = [NSString stringWithFormat:@"%@",[formatter stringFromDate:game.dateAndTime]];
+    
+    cell.city.text = game.city;
     
     return cell;
 }

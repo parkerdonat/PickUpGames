@@ -10,6 +10,7 @@
 
 @interface GameDetailCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *myImageView;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
 
 @end

@@ -13,6 +13,8 @@
 #import "GameConfirmationController.h"
 #import "UserProfilePicController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "GameConfirmation.h"
+#import "CustomTableViewCell.h"
 
 static NSString * const kAddGameCell = @"addGameButtonCell";
 static NSString * const kGamesPostedCell = @"gamesPostedCell";
@@ -24,6 +26,7 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *imageButton;
+@property (weak, nonatomic) IBOutlet UIView *bannerView;
 
 @end
 
@@ -32,10 +35,18 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tabBarController.tabBar.tintColor = [UIColor redColor];
+
+    [self.tableView registerNib:[UINib nibWithNibName:@"CustomCell" bundle:nil] forCellReuseIdentifier:@"CustomCellXib"];
+    
+    self.userNameLabel.text = [[PFUser currentUser] objectForKey:@"userRealName"];
 //    self.tableView.delegate = self;
 //    [[GameController sharedInstance] gamesUserIsGoingTo:^{
 //        [self.tableView reloadData];
 //    }];
+    
+    //self.userNameLabel.text = [PFUser currentUser];
+    
     if ( [UserProfilePicController sharedInstance].profilePicImageView.image == nil) {
         self.profilePic.image = [UIImage imageNamed:@"user60(resized)"];
     } else {
@@ -60,6 +71,8 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 {
     [super viewWillAppear:animated];
     
+    [self.navigationController.navigationBar setHidden:YES];
+
     [[GameConfirmationController sharedInstance] gamesGoingTo:[PFUser currentUser] withCompletion:^(BOOL success) {
         NSLog(@"GAMESGOING QUERY");
         [self.tableView reloadData];
@@ -102,19 +115,33 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
             return cell = [tableView dequeueReusableCellWithIdentifier:kAddGameCell];
             break;
         case profileSectionsGamesPosted:{
+
             game = [GameController sharedInstance].gamesFromUser[indexPath.row];
-            cell = [tableView dequeueReusableCellWithIdentifier:kGamesPostedCell];
-            cell.textLabel.text = game.sportName;
-            return cell;
+            CustomTableViewCell *customCell = [self.tableView dequeueReusableCellWithIdentifier:@"CustomCellXib"];
+            customCell.sportName.text = game.sportName;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"MMMM dd, hh:mm a"];
+            customCell.dateAndTime.text = [NSString stringWithFormat:@"%@",[formatter stringFromDate:game.dateAndTime]];
+            
+            customCell.city.text = game.city;
+            return customCell;
         }
             break;
-        case profileSectionsGamesGoing:
-            game = [[GameConfirmationController sharedInstance].gamesUserIsGoingTo[indexPath.row] objectForKey:@"to"];
-            cell = [tableView dequeueReusableCellWithIdentifier:kGamesGoingCell];
+        case profileSectionsGamesGoing:{
+            game = [[GameConfirmationController sharedInstance].gamesUserIsGoingTo[indexPath.row] objectForKey:@"game"];
+            CustomTableViewCell *customCell = [self.tableView dequeueReusableCellWithIdentifier:@"CustomCellXib"];
+            
+            customCell.sportName.text = game.sportName;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"MMMM dd, hh:mm a"];
+            customCell.dateAndTime.text = [NSString stringWithFormat:@"%@",[formatter stringFromDate:game.dateAndTime]];
+            
             if (game) {
-                cell.textLabel.text = game.sportName;
+                customCell.city.text = game.city;
             }
-            return cell;
+            
+            return customCell;
+        }
             break;
         case profileSectionsLogOut:
             return [tableView dequeueReusableCellWithIdentifier:kLogOutButtonCell];
@@ -124,6 +151,19 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
     }
 }
 
+//CustomTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CustomCellXib"];
+//
+//Game *game = self.filteredGames[indexPath.row];
+//
+//cell.sportName.text = game.sportName;
+//NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//[formatter setDateFormat:@"MMMM dd, hh:mm a"];
+//cell.dateAndTime.text = [NSString stringWithFormat:@"%@",[formatter stringFromDate:game.dateAndTime]];
+//
+//cell.city.text = game.city;
+//
+//return cell;
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     switch (section) {
@@ -131,7 +171,7 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
            return @"Games Posted";
             break;
          case profileSectionsGamesGoing:
-            return @"Games You Are Going Too";
+            return @"Games You're Going To";
         default:
             return nil;
             break;
@@ -144,13 +184,47 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    switch (indexPath.section) {
-        case profileSectionsLogOut:
-            [PFUser logOut];
-            [self.navigationController.tabBarController setSelectedIndex:0];
-            break;
-        default:
-            break;
+   
+    if (indexPath.section == profileSectionsGamesGoing | indexPath.section == profileSectionsGamesPosted) {
+        
+       [self performSegueWithIdentifier:@"showGameFromProfilePage" sender:[tableView cellForRowAtIndexPath:indexPath]];
+        
+    }
+    
+    if (indexPath.section == profileSectionsLogOut) {
+        [PFUser logOut];
+        [self.navigationController.tabBarController setSelectedIndex:0];
+    }
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (section == profileSectionsGamesGoing | section == profileSectionsGamesPosted) {
+        return 30;
+    } else {
+        return 0;
+    }
+
+    return tableView.sectionHeaderHeight;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([segue.identifier isEqualToString:@"showGameFromProfilePage"]) {
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        
+        
+        if (indexPath.section == profileSectionsGamesGoing) {
+            GameDetailViewController *VC = [segue destinationViewController];
+            VC.game = [[GameConfirmationController sharedInstance].gamesUserIsGoingTo[indexPath.row] objectForKey:@"game"];
+        }
+        if (indexPath.section == profileSectionsGamesPosted) {
+            GameDetailViewController *VC = [segue destinationViewController];
+            VC.game = [GameController sharedInstance].gamesFromUser[indexPath.row];
+        }
+
     }
 }
 
@@ -215,14 +289,51 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
         image = info[UIImagePickerControllerEditedImage];
         self.profilePic.image = image;
         
-        self.imageButton.alpha = 0;
-        
         [[UserProfilePicController sharedInstance] savePhotoForUser:[PFUser currentUser] profilePic:image];
+       
+
         
-        PFUser *user = [PFUser currentUser];
-        [user setObject:[UserProfilePicController sharedInstance].profilePicObj forKey:@"profilePicPointer"];
-        
+        }];
+    [[UserProfilePicController sharedInstance] getProfilePics:[PFUser currentUser] withCompletion:^(UserProfilePic *userProfilePic) {
+        NSLog(@"PROFILE PIC UPDATED!");
     }];
+    
+}
+
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == profileSectionsAddGame | indexPath.section == profileSectionsLogOut) {
+        return NO;
+    }
+    
+    return YES;
+    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+        if (indexPath.section == profileSectionsGamesGoing) {
+
+            GameConfirmation *gameToBeDeleted = [GameConfirmationController sharedInstance].gamesUserIsGoingTo[indexPath.row];
+            [[GameConfirmationController sharedInstance] deleteGameConfirmation:gameToBeDeleted];
+            
+            [[GameConfirmationController sharedInstance] gamesGoingTo:[PFUser currentUser] withCompletion:^(BOOL success) {
+                if (success) {
+                        [self.tableView reloadData];
+                }
+            }];
+        }
+        if (indexPath.section == profileSectionsGamesPosted) {
+            Game *gameToBeDeleted = [GameController sharedInstance].gamesFromUser[indexPath.row];
+            [[GameController sharedInstance] deleteGameUserPosted:gameToBeDeleted];
+            
+            [[GameController sharedInstance] getGames:^(BOOL success) {
+                if (success) {
+                    [self.tableView reloadData];
+                }
+            }];
+        }
     
 }
 

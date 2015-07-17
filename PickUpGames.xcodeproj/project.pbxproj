@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C415468F1B58DDAD00DB215B /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C415468E1B58DDAD00DB215B /* CustomCell.xib */; };
+		C41546921B58E06200DB215B /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C41546911B58E06200DB215B /* CustomTableViewCell.m */; };
 		C44C94481B308FD300246466 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44C94471B308FD300246466 /* AudioToolbox.framework */; };
 		C44C944A1B308FDA00246466 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44C94491B308FDA00246466 /* CFNetwork.framework */; };
 		C44C944C1B308FE300246466 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44C944B1B308FE300246466 /* CoreGraphics.framework */; };
@@ -66,6 +68,9 @@
 		2CC223315BD30F5158D841DF /* Pods-PickUpGames.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickUpGames.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PickUpGames/Pods-PickUpGames.debug.xcconfig"; sourceTree = "<group>"; };
 		82E8835C330D2C78DCB5CC04 /* libPods-PickUpGames.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PickUpGames.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA871A4F8DE92832E33DDDF /* Pods-PickUpGames.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickUpGames.release.xcconfig"; path = "Pods/Target Support Files/Pods-PickUpGames/Pods-PickUpGames.release.xcconfig"; sourceTree = "<group>"; };
+		C415468E1B58DDAD00DB215B /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		C41546901B58E06200DB215B /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		C41546911B58E06200DB215B /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		C44C94471B308FD300246466 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C44C94491B308FDA00246466 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C44C944B1B308FE300246466 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -280,6 +285,9 @@
 				C4851CA51B2A259400953345 /* ViewController.h */,
 				C4851CA61B2A259400953345 /* ViewController.m */,
 				C4851CA81B2A259400953345 /* Main.storyboard */,
+				C415468E1B58DDAD00DB215B /* CustomCell.xib */,
+				C41546901B58E06200DB215B /* CustomTableViewCell.h */,
+				C41546911B58E06200DB215B /* CustomTableViewCell.m */,
 				C498B42B1B4CCA2E00EA8EFB /* Game Detail View */,
 				C4AA240C1B3C8CC800A3EE7B /* Home Page */,
 				C4AA24141B41C14D00A3EE7B /* Profile Page */,
@@ -377,9 +385,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C4851C9A1B2A259400953345 /* PickUpGames */ = {
+		C4851C9A1B2A259400953345 /* Game On! */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4851CBE1B2A259400953345 /* Build configuration list for PBXNativeTarget "PickUpGames" */;
+			buildConfigurationList = C4851CBE1B2A259400953345 /* Build configuration list for PBXNativeTarget "Game On!" */;
 			buildPhases = (
 				4071072F4F081C08D8908808 /* Check Pods Manifest.lock */,
 				C4851C971B2A259400953345 /* Sources */,
@@ -391,7 +399,7 @@
 			);
 			dependencies = (
 			);
-			name = PickUpGames;
+			name = "Game On!";
 			productName = PickUpGames;
 			productReference = C4851C9B1B2A259400953345 /* PickUpGames.app */;
 			productType = "com.apple.product-type.application";
@@ -446,7 +454,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C4851C9A1B2A259400953345 /* PickUpGames */,
+				C4851C9A1B2A259400953345 /* Game On! */,
 				C4851CB31B2A259400953345 /* PickUpGamesTests */,
 			);
 		};
@@ -459,6 +467,7 @@
 			files = (
 				C4851CAA1B2A259400953345 /* Main.storyboard in Resources */,
 				C4851CAF1B2A259400953345 /* LaunchScreen.xib in Resources */,
+				C415468F1B58DDAD00DB215B /* CustomCell.xib in Resources */,
 				C4851CAC1B2A259400953345 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,6 +541,7 @@
 				C498B4311B4F08CA00EA8EFB /* GameDetailCollectionViewCell.m in Sources */,
 				C4AA24131B41C14700A3EE7B /* UserProfileViewController.m in Sources */,
 				C498B4401B5560FC00EA8EFB /* UserProfilePic.m in Sources */,
+				C41546921B58E06200DB215B /* CustomTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,7 +558,7 @@
 /* Begin PBXTargetDependency section */
 		C4851CB61B2A259400953345 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C4851C9A1B2A259400953345 /* PickUpGames */;
+			target = C4851C9A1B2A259400953345 /* Game On! */;
 			targetProxy = C4851CB51B2A259400953345 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -741,7 +751,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4851CBE1B2A259400953345 /* Build configuration list for PBXNativeTarget "PickUpGames" */ = {
+		C4851CBE1B2A259400953345 /* Build configuration list for PBXNativeTarget "Game On!" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4851CBF1B2A259400953345 /* Debug */,

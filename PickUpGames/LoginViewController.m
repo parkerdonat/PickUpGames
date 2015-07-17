@@ -24,6 +24,7 @@
     
     self.userEmailTextField.delegate = self;
     self.passwordTextField.delegate = self;
+    self.loginButton.backgroundColor = [UIColor whiteColor];
     
 }
 

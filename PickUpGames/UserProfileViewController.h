@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GameDetailViewController.h"
 
 typedef NS_ENUM(NSUInteger, profileSections) {
     profileSectionsAddGame,

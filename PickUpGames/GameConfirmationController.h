@@ -8,17 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "Game.h"
+@class GameConfirmation;
 #import "UserProfilePicController.h"
 
 
 @interface GameConfirmationController : NSObject
 
 @property (strong, nonatomic) NSArray *gamesUserIsGoingTo;
-@property (strong, nonatomic) NSArray *usersGoingToGame;
+@property (strong, nonatomic) NSMutableArray *usersGoingToGame;
 
 
 + (GameConfirmationController *)sharedInstance;
-- (void)createConfirmationToGame:(Game *)game user:(PFUser *)user;
+- (void)createConfirmationToGame:(Game *)game user:(PFUser *)user withCompletion:(void (^)(BOOL success))completion;
 - (void)gamesGoingTo:(PFUser *)user withCompletion:(void (^)(BOOL success))completion;
-
+- (void)usersGoingToGame:(Game *)game withCompletion:(void (^)(BOOL success))completion;
+- (void)deleteGameConfirmation:(GameConfirmation *)game;
 @end

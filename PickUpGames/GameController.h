@@ -24,7 +24,6 @@
 - (void)getGames:(void (^)(BOOL success))completion;
 - (void)getGamesWithCity:(NSString *)city withCompletion:(void (^)(BOOL success))completion;
 - (void)getGamesfromUser:(void (^)(void))completion;
-- (void)addUserToGame:(Game *)game user:(PFUser *)user;
-
+- (void)deleteGameUserPosted:(Game *)game;
 
 @end

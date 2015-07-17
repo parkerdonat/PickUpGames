@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *dateTimeImage;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *publicOrNot;
 @property (strong, nonatomic) UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIButton *postGameBUtton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelGameButton;
 
 @end
 
@@ -29,18 +31,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.postGameBUtton.backgroundColor = [UIColor redColor];
+    self.cancelGameButton.backgroundColor = [UIColor blueColor];
     self.nameOfSportTextField.delegate = self;
     self.cityTextField.delegate = self;
     self.cityTextField.delegate = self;
     
     // Do any additional setup after loading the view.
     
-    self.sportImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
-    self.cityImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
-    self.whereImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
-    self.dateTimeImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
+//    self.sportImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
+//    self.cityImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
+//    self.whereImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
+//    self.dateTimeImage.tintColor = [UIColor colorWithRed:0.137 green:0.349 blue:0.945 alpha:1];
+    self.sportImage.tintColor = [UIColor redColor];
+    self.cityImage.tintColor = [UIColor redColor];
+    self.whereImage.tintColor = [UIColor redColor];
+    self.dateTimeImage.tintColor = [UIColor redColor];
+    
     
     self.dateAndTimeTextField.delegate = self;
+    
     
 }
 
