@@ -33,7 +33,6 @@
 		C47AB98C1B389B9700E36884 /* RegisterPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47AB98B1B389B9700E36884 /* RegisterPageViewController.m */; };
 		C4851CA11B2A259400953345 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4851CA01B2A259400953345 /* main.m */; };
 		C4851CA41B2A259400953345 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4851CA31B2A259400953345 /* AppDelegate.m */; };
-		C4851CA71B2A259400953345 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4851CA61B2A259400953345 /* ViewController.m */; };
 		C4851CAA1B2A259400953345 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4851CA81B2A259400953345 /* Main.storyboard */; };
 		C4851CAC1B2A259400953345 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4851CAB1B2A259400953345 /* Images.xcassets */; };
 		C4851CAF1B2A259400953345 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4851CAD1B2A259400953345 /* LaunchScreen.xib */; };
@@ -99,13 +98,11 @@
 		C47AB9561B3491C000E36884 /* GroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupController.m; sourceTree = "<group>"; };
 		C47AB98A1B389B9700E36884 /* RegisterPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterPageViewController.h; sourceTree = "<group>"; };
 		C47AB98B1B389B9700E36884 /* RegisterPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterPageViewController.m; sourceTree = "<group>"; };
-		C4851C9B1B2A259400953345 /* PickUpGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickUpGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4851C9B1B2A259400953345 /* Game On!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game On!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4851C9F1B2A259400953345 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4851CA01B2A259400953345 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C4851CA21B2A259400953345 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4851CA31B2A259400953345 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C4851CA51B2A259400953345 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C4851CA61B2A259400953345 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C4851CA91B2A259400953345 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4851CAB1B2A259400953345 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C4851CAE1B2A259400953345 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -271,7 +268,7 @@
 		C4851C9C1B2A259400953345 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4851C9B1B2A259400953345 /* PickUpGames.app */,
+				C4851C9B1B2A259400953345 /* Game On!.app */,
 				C4851CB41B2A259400953345 /* PickUpGamesTests.xctest */,
 			);
 			name = Products;
@@ -282,8 +279,6 @@
 			children = (
 				C4851CA21B2A259400953345 /* AppDelegate.h */,
 				C4851CA31B2A259400953345 /* AppDelegate.m */,
-				C4851CA51B2A259400953345 /* ViewController.h */,
-				C4851CA61B2A259400953345 /* ViewController.m */,
 				C4851CA81B2A259400953345 /* Main.storyboard */,
 				C415468E1B58DDAD00DB215B /* CustomCell.xib */,
 				C41546901B58E06200DB215B /* CustomTableViewCell.h */,
@@ -401,7 +396,7 @@
 			);
 			name = "Game On!";
 			productName = PickUpGames;
-			productReference = C4851C9B1B2A259400953345 /* PickUpGames.app */;
+			productReference = C4851C9B1B2A259400953345 /* Game On!.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C4851CB31B2A259400953345 /* PickUpGamesTests */ = {
@@ -530,7 +525,6 @@
 				C47AB9441B348BC100E36884 /* AddGameViewController.m in Sources */,
 				C498B42A1B4CCA2600EA8EFB /* GameDetailViewController.m in Sources */,
 				C47AB94E1B34918400E36884 /* Group.m in Sources */,
-				C4851CA71B2A259400953345 /* ViewController.m in Sources */,
 				C4851CA41B2A259400953345 /* AppDelegate.m in Sources */,
 				C47AB98C1B389B9700E36884 /* RegisterPageViewController.m in Sources */,
 				C4EB0D131B45AA9F00FA035A /* ResultsTableViewController.m in Sources */,

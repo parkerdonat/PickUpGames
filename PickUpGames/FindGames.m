@@ -33,6 +33,12 @@
     [super viewDidLoad];
     
     
+//    if ([PFUser currentUser]) {
+//        [[UserProfilePicController sharedInstance] getProfilePics:[PFUser currentUser] withCompletion:^(UserProfilePic *userProfilePic) {
+//            NSLog(@"FOUND PROFILE PIC");
+//        }];
+//    }
+    
     [self setNeedsStatusBarAppearanceUpdate];
     UIImageView *titleImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Cleargameon"]];
     
@@ -41,26 +47,38 @@
     self.tabBarController.tabBar.tintColor = [UIColor redColor];
 
     _resultsTableController = [[ResultsTableViewController alloc]init];
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController]; // Here we are linking our search controller with the tableview that we crreated to filter the results
-    self.searchController.searchResultsUpdater = self; // This class is going to be dealing with the updating of the data <UISearchResultUpdating>
-    [self.searchController.searchBar sizeToFit]; //deals with an autolayout bug
-    self.tableView.tableHeaderView = self.searchController.searchBar; // This is going to set a Search Bar under the Navigation Bar.
+    
+    // Here we are linking our search controller with the tableview that we crreated to filter the results
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
+    
+    // This class is going to be dealing with the updating of the data <UISearchResultUpdating>
+    self.searchController.searchResultsUpdater = self;
+    
+    //deals with an autolayout bug
+    [self.searchController.searchBar sizeToFit];
+    
+    // This is going to set a Search Bar under the Navigation Bar.
+    self.tableView.tableHeaderView = self.searchController.searchBar;
     
     // MARK: Setting the delegates
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
     self.resultsTableController.tableView.delegate = self;
     self.searchController.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;// it dims the background when the the search is active
-    self.searchController.searchBar.delegate = self; // This delegate is going to help us know when the text has been changed or added.
+    // it dims the background when the the search is active
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    // This delegate is going to help us know when the text has been changed or added.
     // Search is now just presenting a view controller. As such, normal view controller
     // presentation semantics apply. Namely that presentation will walk up the view controller
     // hierarchy until it finds the root view controller or one that defines a presentation context.
-    //
-    self.definesPresentationContext = YES;  // know where you want UISearchController to be displayed
+    self.searchController.searchBar.delegate = self;
+    // know where you want UISearchController to be displayed
+    self.definesPresentationContext = YES;
     
-    self.locationManager = [[CLLocationManager alloc] init]; // initializing locationManager
-    self.locationManager.delegate = self; // we set the delegate of locationManager to self.
-//    locationManager.desiredAccuracy = kCLLocationAccuracyBest; // setting the accuracy
+    // initializing locationManager
+    self.locationManager = [[CLLocationManager alloc] init];
+    // we set the delegate of locationManager to self.
+    self.locationManager.delegate = self;
+    //locationManager.desiredAccuracy = kCLLocationAccuracyBest; // setting the accuracy
     
 //    if([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
 //    {

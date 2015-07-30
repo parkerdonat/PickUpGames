@@ -32,6 +32,8 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 
 @implementation UserProfileViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -39,7 +41,9 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
 
     [self.tableView registerNib:[UINib nibWithNibName:@"CustomCell" bundle:nil] forCellReuseIdentifier:@"CustomCellXib"];
     
-    self.userNameLabel.text = [[PFUser currentUser] objectForKey:@"userRealName"];
+
+
+//    self.userNameLabel.text = [[PFUser currentUser] objectForKey:@"userRealName"];
 //    self.tableView.delegate = self;
 //    [[GameController sharedInstance] gamesUserIsGoingTo:^{
 //        [self.tableView reloadData];
@@ -47,12 +51,12 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
     
     //self.userNameLabel.text = [PFUser currentUser];
     
-    if ( [UserProfilePicController sharedInstance].profilePicImageView.image == nil) {
-        self.profilePic.image = [UIImage imageNamed:@"user60(resized)"];
-    } else {
-        self.profilePic.image = [UserProfilePicController sharedInstance].profilePicImageView.image;
-
-    }
+//    if ( [UserProfilePicController sharedInstance].profilePicImageView.image == nil) {
+//        self.profilePic.image = [UIImage imageNamed:@"user60(resized)"];
+//    } else {
+//        self.profilePic.image = [UserProfilePicController sharedInstance].profilePicImageView.image;
+//
+//    }
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
@@ -82,7 +86,16 @@ static NSString * const kLogOutButtonCell = @"logoutCell";
         [self.tableView reloadData];
     }];
     
-   
+    [[UserProfilePicController sharedInstance] getProfilePics:[PFUser currentUser] withCompletion:^(UserProfilePic *userProfilePic) {
+//        if ( [UserProfilePicController sharedInstance].profilePicImageView.image == nil) {
+            //self.profilePic.image = userProfilePic.userProfilePic.url;
+            [self.profilePic sd_setImageWithURL:[NSURL URLWithString:userProfilePic.userProfilePic.url]];
+//        } else {
+//            self.profilePic.image = [UIImage imageNamed:@"user60(resized)"];
+//        }
+    }];
+    
+    self.userNameLabel.text = [[PFUser currentUser] objectForKey:@"userRealName"];
 
 }
 

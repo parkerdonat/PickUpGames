@@ -39,11 +39,11 @@
     [UserProfilePic registerSubclass];
     
     
-    if ([PFUser currentUser]) {
-         [[UserProfilePicController sharedInstance] getProfilePics:[PFUser currentUser] withCompletion:^(UserProfilePic *userProfilePic) {
-             NSLog(@"FOUND PROFILE PIC");
-         }];
-    }
+//    if ([PFUser currentUser]) {
+//         [[UserProfilePicController sharedInstance] getProfilePics:[PFUser currentUser] withCompletion:^(UserProfilePic *userProfilePic) {
+//             NSLog(@"FOUND PROFILE PIC");
+//         }];
+//    }
    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     

@@ -50,6 +50,7 @@
     self.profilePicImageView = [UIImageView new];
     PFQuery *query = [[UserProfilePic query] whereKey:@"user" equalTo:user];
 //    [query includeKey:@"userProfilePic"];
+    //UserProfilePic *newProfilePic = [UserProfilePic new];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects) {

@@ -35,7 +35,12 @@
 
 - (IBAction)loginButtonTapped:(id)sender {
     
-    [PFUser logInWithUsernameInBackground:self.userEmailTextField.text password: self.passwordTextField.text
+    
+    NSString *email = self.userEmailTextField.text;
+    NSString *pass = self.passwordTextField.text;
+    
+    
+    [PFUser logInWithUsernameInBackground:email password: pass
                                     block:^(PFUser *user, NSError *error) {
                                         if (user) {
                                             
